@@ -92,7 +92,7 @@ Instead of asking Murugan to prove he lost income, GigShield monitors his zone i
 
 **What we cover:** Platform income loss due to external, verifiable disruptions.
 **What we don't cover:** Health, accidents, vehicle damage, or personal emergencies.
-**Who it's for:** Food delivery workers on Swiggy, Zomato, Dunzo, and Blinkit in Chennai (expanding to other cities in future phases).
+**Who it's for:** Food delivery workers on Swiggy, Zomato, Zepto, Blinkit, and Amazon across major Indian cities — Mumbai, Delhi NCR, Bangalore, Hyderabad, Chennai, Pune, Kolkata, and Ahmedabad. Murugan (Swiggy, Tambaram, Chennai) is our primary persona and the example used throughout this document, but the platform is built to serve workers across all supported cities and platforms.
 
 ---
 
@@ -100,13 +100,17 @@ Instead of asking Murugan to prove he lost income, GigShield monitors his zone i
 
 ### Step 1 — Onboarding (2 minutes, no documents)
 
-Murugan opens GigShield on his phone browser. He fills in:
-- Full name and mobile number
-- City and delivery zone (pincode-level)
-- Platform (Swiggy / Zomato / Dunzo / Blinkit)
-- Average weekly earnings
+Murugan opens GigShield on his phone browser. He goes through a 4-step onboarding wizard:
 
-GigShield instantly generates his risk profile and weekly premium. No documents. No agent visit. No waiting for approval.
+**Step 1 — Platform Selection:** He selects his primary delivery platform from a card grid — Zomato, Swiggy, Zepto, Blinkit, or Amazon. Each card shows the platform's icon for quick, visual selection.
+
+**Step 2 — Location:** He selects his city from 8 supported cities (Mumbai, Delhi NCR, Bangalore, Hyderabad, Chennai, Pune, Kolkata, Ahmedabad), enters his zone/area (e.g. Tambaram), and inputs his average daily working hours. The platform immediately shows a zone risk badge (Low / Medium / High) based on hyper-local historical disruption data.
+
+**Step 3 — AI Risk Profiling:** GigShield runs an automated analysis across 12+ risk parameters for his city and zone — flood history, monsoon exposure, seasonal AQI, historical disruption frequency. A personalized risk score (0–100) is generated along with a recommended weekly premium.
+
+**Step 4 — Plan Confirmation:** A full policy summary is shown — coverage amount, weekly premium, renewal date, and active triggers. He confirms and activates coverage.
+
+No documents. No agent visit. No waiting for approval.
 
 ### Step 2 — Policy Activation
 
@@ -163,9 +167,9 @@ Zone Risk         : Low zone +₹0 | Medium zone +₹15 | High zone (flood-prone
 Seasonal          : Off-season +₹0 | Summer (Apr–May) +₹5 | Monsoon (Jun–Nov) +₹10
 ```
 
-**Zone classification** is based on Chennai Corporation flood zone data and historical disruption frequency per pincode.
+**Zone classification** is based on municipal flood zone data and historical disruption frequency per zone, calibrated per city. Currently supported across 8 cities: Mumbai, Delhi NCR, Bangalore, Hyderabad, Chennai, Pune, Kolkata, and Ahmedabad.
 
-**Seasonal adjustment** is based on IMD Chennai historical rainfall and temperature data by month.
+**Seasonal adjustment** is based on IMD historical rainfall and temperature data by city and month.
 
 **Example — Murugan, Tambaram, October:**
 
@@ -242,6 +246,23 @@ Parametric insurance is theoretically vulnerable to identity fraud and false reg
 
 We chose this stack based on what is right for the problem — not just what we already knew. Every technology choice reflects a deliberate decision about performance, scalability, and fit for a real production insurance platform.
 
+**Current Prototype (Phase 1)**
+
+The Phase 1 interactive prototype is built as a single self-contained HTML file to enable rapid demonstration and evaluation without any setup or server requirements. It runs offline by simply opening the file in any browser on any device.
+
+| Layer | Technology | Why |
+|-------|-----------|-----|
+| UI Framework | **React 18 (CDN)** | Component architecture for real-time dashboard updates; loaded via unpkg CDN — no build step needed |
+| Styling | **Tailwind CSS (CDN)** | Utility-first, mobile-first, production-grade UI without custom CSS overhead |
+| Animations | **Framer Motion (CDN)** | Smooth transitions and micro-interactions throughout the onboarding and dashboard flows |
+| Charts | **Recharts (CDN)** | Weekly earnings vs protected income area chart on the dashboard |
+| Icons | **Lucide React (CDN)** | Consistent icon set across all UI components |
+| JSX compilation | **Babel Standalone (CDN)** | Compiles JSX in-browser — enables React without a build tool |
+| State persistence | **localStorage** | Worker profile and policy state persists across page refreshes |
+| Data | **Simulated / hardcoded** | All weather, claims, and API data is mocked in-browser for demo purposes |
+
+**Production Build (Phase 2 onwards)**
+
 | Layer | Technology | Why |
 |-------|-----------|-----|
 | Frontend | **React.js 18** | Component architecture handles real-time dashboard updates cleanly; industry standard for dynamic web apps |
@@ -256,75 +277,24 @@ We chose this stack based on what is right for the problem — not just what we 
 | Hosting | **Vercel** (frontend) + **Railway** (backend) | Production-grade free tiers, GitHub-connected CI/CD, auto-deploy on push |
 | Version Control | **GitHub** | Public repo, clean branch structure, transparent development history |
 
-**Why React over plain HTML/JS:**
-GigShield's dashboard requires real-time state updates — live trigger status changes, claim progress tracking, live zone monitoring. React's component state model and re-rendering handles this natively. Achieving the same with vanilla JS would require significant DOM manipulation complexity that doesn't scale.
+**Why React (both prototype and production):**
+GigShield's dashboard requires real-time state updates — live trigger status changes, claim progress tracking, live zone monitoring. React's component state model and re-rendering handles this natively. In the prototype, React runs via CDN with Babel Standalone for in-browser JSX compilation, making the file fully portable. In production, it will be bundled with a standard build pipeline (Vite/CRA).
 
-**Why FastAPI over Flask:**
+**Why FastAPI over Flask (production):**
 FastAPI is async by default, meaning our 30-minute trigger polling loop, API calls to OpenWeatherMap, and claim processing pipeline can all run concurrently without blocking. It also auto-generates interactive Swagger documentation, making our API transparent, testable, and judge-readable. Flask is synchronous by default and would require additional libraries to achieve the same.
 
-**Why Firebase Firestore:**
+**Why Firebase Firestore (production):**
 Our trigger monitoring system needs to push real-time updates to worker dashboards the moment a claim is initiated. Firestore's real-time listeners make this possible without polling from the frontend. A traditional SQL database would require a separate WebSocket layer to achieve the same.
 
 ---
 
 ## 🏗️ System Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        GIGSHIELD SYSTEM                      │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│   ┌──────────────┐         ┌──────────────────────────┐    │
-│   │   React.js   │ ◄─────► │   FastAPI Backend         │    │
-│   │   Frontend   │  REST   │   (Python)                │    │
-│   │   (Vercel)   │         │   (Railway)               │    │
-│   └──────────────┘         └──────────┬───────────────┘    │
-│                                        │                     │
-│              ┌─────────────────────────┼──────────────┐     │
-│              │                         │              │     │
-│              ▼                         ▼              ▼     │
-│   ┌──────────────────┐  ┌──────────────────┐  ┌──────────┐ │
-│   │ Firebase         │  │ OpenWeatherMap   │  │ Razorpay │ │
-│   │ Firestore +      │  │ API + WAQI API   │  │ UPI      │ │
-│   │ Firebase Auth    │  │ (Trigger Source) │  │ Payout   │ │
-│   └──────────────────┘  └──────────────────┘  └──────────┘ │
-│                                        │                     │
-│                          ┌─────────────▼──────────┐         │
-│                          │   scikit-learn ML Layer │         │
-│                          │   - Premium Calculator  │         │
-│                          │   - Fraud Detection     │         │
-│                          │   - Risk Predictor      │         │
-│                          └────────────────────────┘         │
-└─────────────────────────────────────────────────────────────┘
-```
+The frontend is a React app hosted on Vercel. It communicates with our FastAPI backend on Railway through REST APIs. The backend is where all the real work happens — trigger monitoring, claim processing, fraud detection, and payment disbursement. Firebase Firestore stores all worker profiles, policies, and claim records and pushes real-time updates to the frontend the moment a claim is triggered. Firebase Auth handles phone number OTP login so workers don't need a password. Our ML models run as Python modules inside the backend. All external API calls — OpenWeatherMap, WAQI, and Razorpay — go through the backend only, never directly from the frontend.
 
-**Data Flow — Claim Trigger:**
-```
-OpenWeatherMap API (every 30 mins)
-        │
-        ▼
-FastAPI Trigger Monitor
-        │
-        ├── Threshold crossed? NO → Continue polling
-        │
-        └── Threshold crossed? YES
-                │
-                ▼
-        Identify active policies in affected zone (Firestore)
-                │
-                ▼
-        Create claim records (Firestore)
-                │
-                ▼
-        ML Fraud Detection (scikit-learn)
-                │
-                ├── Flagged → Admin review queue
-                │
-                └── Clean → Razorpay UPI disbursement
-                                │
-                                ▼
-                        Push notification to worker
-```
+**How a claim works end to end:**
+
+The backend polls OpenWeatherMap every 30 minutes for every active worker's pincode. The moment a threshold is crossed — say rainfall exceeds 20mm/hr in Tambaram — the trigger monitor identifies all active policies in that zone, creates claim records in Firestore, and runs them through the fraud detection model. Clean claims go straight to Razorpay for UPI disbursement. Flagged claims go to the admin review queue. The worker gets a push notification either way. The whole process from trigger detection to payout initiation takes under 5 minutes.
 
 ---
 
@@ -342,79 +312,9 @@ FastAPI Trigger Monitor
 
 ## 📁 Repository Structure
 
-```
-gigshield/
-│
-├── frontend/                          # React.js application
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── components/                # Reusable UI components
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── TriggerCard.jsx        # Live zone monitoring card
-│   │   │   ├── ClaimStatus.jsx        # Claim progress tracker
-│   │   │   ├── PremiumDisplay.jsx     # Premium breakdown card
-│   │   │   └── LossSimulator.jsx      # Loss simulation calculator
-│   │   ├── pages/                     # Route-level page components
-│   │   │   ├── Landing.jsx
-│   │   │   ├── Onboarding.jsx
-│   │   │   ├── Dashboard.jsx          # Worker dashboard
-│   │   │   ├── ActiveClaim.jsx
-│   │   │   └── AdminDashboard.jsx
-│   │   ├── services/                  # API call functions
-│   │   │   ├── api.js                 # FastAPI backend calls
-│   │   │   └── firebase.js            # Firestore real-time listeners
-│   │   ├── utils/                     # Helper functions
-│   │   │   └── premiumCalculator.js
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── package.json
-│   └── tailwind.config.js
-│
-├── backend/                           # FastAPI application
-│   ├── app/
-│   │   ├── main.py                    # FastAPI app entry point
-│   │   ├── routers/                   # API route handlers
-│   │   │   ├── workers.py             # Worker registration, profile
-│   │   │   ├── policies.py            # Policy creation, renewal
-│   │   │   ├── claims.py              # Claim initiation, status
-│   │   │   ├── triggers.py            # Trigger monitoring endpoints
-│   │   │   └── admin.py               # Admin dashboard endpoints
-│   │   ├── services/                  # Business logic
-│   │   │   ├── trigger_monitor.py     # 30-min polling loop
-│   │   │   ├── claim_processor.py     # Auto-claim initiation
-│   │   │   ├── payout_service.py      # Razorpay UPI disbursement
-│   │   │   └── notification_service.py
-│   │   ├── ml/                        # ML models
-│   │   │   ├── premium_model.py       # scikit-learn regression
-│   │   │   ├── fraud_detection.py     # Isolation Forest
-│   │   │   └── risk_predictor.py      # 7-day forecast risk scoring
-│   │   ├── models/                    # Pydantic data models
-│   │   │   ├── worker.py
-│   │   │   ├── policy.py
-│   │   │   └── claim.py
-│   │   └── config.py                  # Environment variables
-│   ├── requirements.txt
-│   └── Dockerfile
-│
-├── ml/                                # ML model training notebooks
-│   ├── data/                          # Training datasets
-│   ├── premium_model_training.ipynb
-│   └── fraud_detection_training.ipynb
-│
-├── docs/                              # Project documentation
-│   ├── persona/
-│   │   └── murugan_worker_persona.docx
-│   ├── wireframes/
-│   │   └── gigshield_wireframes_v2.html
-│   └── architecture/
-│       └── system_architecture.md
-│
-├── .env.example                       # Environment variable template
-├── .gitignore
-└── README.md
-```
+The repo is split into four main folders. The `frontend` folder is our React + Tailwind project — components, pages, services, and utilities all have their own subfolders so the codebase stays clean as we build. The `backend` folder is our FastAPI app, organised into routers (API endpoints), services (business logic like trigger monitoring and claim processing), ml (our scikit-learn models), and models (Pydantic data schemas). The `ml` folder holds our Jupyter notebooks for training the premium calculation and fraud detection models separately from the backend code. The `docs` folder contains our persona document, wireframes, and architecture notes.
 
+We set this structure up in Phase 1 deliberately — so that when Phase 2 build starts, every team member knows exactly where their work lives and there's no confusion about where files go.
 ---
 
 ## 🗓️ Development Plan
@@ -459,12 +359,14 @@ Research, persona development, system design, tech stack finalization, README, w
 
 ## 👥 Team — Code4ce
 
-| Name | Role | Responsibilities |
-|------|------|-----------------|
-| **Srinidhi R** | Team Lead & Research | Persona research, product strategy, documentation, coordination |
-| **Panbarasi S** | Frontend Development | React.js, Tailwind CSS, dashboard UI, responsive design |
-| **Aakas D R** | Backend & AI/ML | FastAPI, Firebase, trigger monitoring, scikit-learn models |
-| **Dharshini S S** | Integration & Content | API integration, testing, content, video production |
+Team Code4ce operates as a full-stack collaborative unit. All four members contribute across research, development, testing, and content throughout every phase. The table below reflects each member's primary focus area — not exclusive ownership.
+
+| Name | Primary Focus |
+|------|--------------|
+| **Srinidhi R** | Product strategy, persona research & documentation |
+| **Panbarasi S** | Frontend & UI development |
+| **Aakas D R** | Backend, Firebase & AI/ML |
+| **Dharshini S S** | API integration, testing & content |
 
 ---
 
