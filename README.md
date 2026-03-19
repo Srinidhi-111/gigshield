@@ -19,13 +19,14 @@ No forms. No agents. No waiting.
 6. [Weekly Premium Model](#-weekly-premium-model)
 7. [Loss Simulation Dashboard](#-loss-simulation-dashboard)
 8. [AI/ML Integration](#-aiml-integration)
-9. [Tech Stack](#-tech-stack)
-10. [System Architecture](#-system-architecture)
-11. [Platform Choice](#-platform-choice--web-application)
-12. [Repository Structure](#-repository-structure)
-13. [Development Plan](#-development-plan)
-14. [Team](#-team--code4ce)
-15. [References](#-references)
+9. [Adversarial Defense & Anti-Spoofing Strategy](#️-adversarial-defense--anti-spoofing-strategy)
+10. [Tech Stack](#-tech-stack)
+11. [System Architecture](#-system-architecture)
+12. [Platform Choice](#-platform-choice--web-application)
+13. [Repository Structure](#-repository-structure)
+14. [Development Plan](#-development-plan)
+15. [Team](#-team--code4ce)
+16. [References](#-references)
 
 ---
 
@@ -242,6 +243,67 @@ Parametric insurance is theoretically vulnerable to identity fraud and false reg
 
 ---
 
+## 🛡️ Adversarial Defense & Anti-Spoofing Strategy
+
+### The Threat
+
+A coordinated fraud ring registers 500 fake delivery workers across Tambaram and Chromepet. They spoof their GPS to show them inside the affected zone. Heavy rain hits. 500 fake claims fire. ₹3,60,000 drains from the liquidity pool in under 2 hours.
+
+This is not a hypothetical. It is the exact attack vector that parametric insurance platforms face. GigShield is built to fight it.
+
+### How We Distinguish a Genuinely Stranded Worker from a Faker
+
+The key insight is this: **a real delivery worker leaves traces. A fake one doesn't.**
+
+A genuine worker who couldn't ride during heavy rain will have:
+- Platform activity (orders accepted, then dropped) in the hours before the disruption
+- A location history that matches their registered zone over multiple weeks
+- A device fingerprint consistent with previous sessions
+- No unusual registration patterns — they joined weeks or months ago, not hours before a trigger event
+
+A fraudster operating a fake account will typically have:
+- No prior platform activity on record
+- A freshly registered account — created close to a high-risk weather window
+- GPS coordinates that are static or suspiciously perfect — real workers move around
+- Multiple accounts registered from the same device or IP address
+- A claim pattern that fires immediately after every single trigger event, with no variation
+
+### Our Multi-Layer Defense
+
+**Layer 1 — Registration Velocity Check**
+New accounts registered within 72 hours of a forecasted high-risk weather event are flagged automatically. They can register but their first claim requires manual admin review. A real worker doesn't create an insurance account because rain is coming — they create it because they want ongoing protection.
+
+**Layer 2 — Platform Activity Cross-Check**
+At claim time, we check whether the worker had any platform activity (orders accepted, deliveries completed, or app open events) in the 4-hour window before the trigger. A worker who was genuinely riding will have activity. A fake worker with a spoofed GPS will have none.
+
+**Layer 3 — GPS Behaviour Analysis**
+Real delivery workers move. Their location pings over a session show natural movement — stopping at restaurants, navigating streets, returning to pickup zones. A spoofed GPS shows one of two patterns: perfectly static coordinates, or unnaturally smooth movement. Our system flags both.
+
+**Layer 4 — Device and Network Fingerprinting**
+Multiple accounts registering from the same device ID or IP subnet are flagged as a potential fraud ring. One person operating 10 fake accounts will share a device. A real worker has one account on one phone.
+
+**Layer 5 — Isolation Forest Anomaly Detection**
+Our scikit-learn Isolation Forest model runs on every claim. It is trained on legitimate claim patterns — zone, time of day, weather severity, worker account age, claim frequency. Claims that deviate significantly from the normal distribution are flagged for review. This catches fraud rings that pass individual checks but look statistically abnormal at scale.
+
+**Layer 6 — Claim Velocity Cap**
+No worker can receive more than one payout per trigger event per day. At the platform level, if claims from a single zone exceed 3x the historical average for that zone and trigger type, the entire batch is paused and sent to admin review before disbursement.
+
+### How We Flag Bad Actors Without Punishing Honest Workers
+
+This is the hardest part. A worker who genuinely lost connectivity, whose GPS lagged, or who just registered last week deserves protection too.
+
+Our approach:
+- **Flag, don't block.** Suspicious claims go to a review queue — they are not rejected automatically. A human admin can approve them within the 2-hour window.
+- **Graduated trust.** New accounts get their first claim reviewed manually. After one clean claim, they move to standard automated processing.
+- **Appeal mechanism.** Workers can submit a simple form with their platform activity screenshot. One legitimate piece of evidence clears a flagged claim.
+- **Zone-level anomaly, not worker-level punishment.** If 500 claims fire from one zone simultaneously, we pause the batch — not individual workers. We investigate the event, not the person.
+
+### Why This Matters for GigShield's Sustainability
+
+Parametric insurance only works if the liquidity pool stays solvent. One successful fraud ring can wipe out weeks of premium collections. Our defense strategy is not just about catching fraudsters — it is about making sure that when Murugan's rain payout fires at 6 PM, the money is actually there.
+
+---
+
 ## 🛠️ Tech Stack
 
 We chose this stack based on what is right for the problem — not just what we already knew. Every technology choice reflects a deliberate decision about performance, scalability, and fit for a real production insurance platform.
@@ -315,6 +377,7 @@ The backend polls OpenWeatherMap every 30 minutes for every active worker's pinc
 The repo is split into four main folders. The `frontend` folder is our React + Tailwind project — components, pages, services, and utilities all have their own subfolders so the codebase stays clean as we build. The `backend` folder is our FastAPI app, organised into routers (API endpoints), services (business logic like trigger monitoring and claim processing), ml (our scikit-learn models), and models (Pydantic data schemas). The `ml` folder holds our Jupyter notebooks for training the premium calculation and fraud detection models separately from the backend code. The `docs` folder contains our persona document, wireframes, and architecture notes.
 
 We set this structure up in Phase 1 deliberately — so that when Phase 2 build starts, every team member knows exactly where their work lives and there's no confusion about where files go.
+
 ---
 
 ## 🗓️ Development Plan
