@@ -32,7 +32,7 @@ export default function Policy({ onNavigate }) {
           {[
             ['Policy ID', policyId.slice(0, 14)],
             ['Zone', workerData.zone || 'Tambaram'],
-            ['Business Type', workerData.platform || 'Food Cart'],
+            ['Platform', workerData.platform || 'Swiggy'],
             ['Renewal', `${renewalDate} · ₹${workerData.premium || 84}`],
           ].map(([label, val]) => (
             <div key={label}>

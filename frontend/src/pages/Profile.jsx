@@ -20,7 +20,7 @@ export default function Profile({ onNavigate }) {
         <div>
           <div className="font-display text-lg font-bold text-white">{workerData.name || 'Murugan R'}</div>
           <div className="text-xs text-gray-400">{workerData.phone || '+91 98765 43210'}</div>
-          <div className="text-xs text-primary mt-0.5">{workerData.zone || 'Tambaram'} · {workerData.platform || 'Food Cart'}</div>
+          <div className="text-xs text-primary mt-0.5">{workerData.zone || 'Tambaram'} · {workerData.platform || 'Swiggy'}</div>
         </div>
       </div>
 
@@ -29,7 +29,7 @@ export default function Profile({ onNavigate }) {
         <div className="text-xs text-gray-400 uppercase tracking-widest mb-3">Account Details</div>
         {[
           ['📍 Delivery Zone', workerData.zone || 'Tambaram'],
-          ['🛒 Business Type', workerData.platform || 'Food Cart'],
+          ['🏍️ Platform', workerData.platform || 'Swiggy'],
           ['🏙️ City', workerData.city || 'Chennai'],
           ['💰 Weekly Income', `₹${workerData.weekly_earnings || '4,500'}`],
           ['⏰ Daily Hours', `${workerData.daily_hours || 8} hrs`],

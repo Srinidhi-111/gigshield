@@ -111,7 +111,7 @@ export default function Dashboard({ onNavigate }) {
         <div className="flex flex-wrap items-start justify-between mb-6">
           <div>
             <h1 className="font-display font-bold text-2xl mb-1 text-white">
-              Good Morning, {profile.name || 'Vendor'}
+              Good Morning, {profile.name || 'Rider'}
             </h1>
             <p className="text-white/50 text-sm">
               {profile.city || 'Chennai'}, {profile.zone || 'Tambaram'} — <span className="text-success">Policy Active</span>

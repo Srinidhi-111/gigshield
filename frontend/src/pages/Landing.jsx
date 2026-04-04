@@ -78,7 +78,7 @@ export default function Landing({ onNavigate }) {
             Don't Let The <span className="text-primary">Rain</span> Steal Your Earnings
           </h1>
           <p className="text-white/60 text-lg mb-4">When weather strikes, StreetGuard pays. Automatically.</p>
-          <p className="text-white/40 text-sm mb-10">Built for India's 7.7 million street vendors and local carts.</p>
+          <p className="text-white/40 text-sm mb-10">Built for India's 7.7 million delivery partners.</p>
 
           <div className="flex flex-wrap justify-center gap-6 mb-10">
             {[['₹49', 'Per Week'], ['15 min', 'Claim Payout'], ['Zero', 'Paperwork']].map(([v, l]) => (
@@ -182,7 +182,7 @@ export default function Landing({ onNavigate }) {
 
       {/* ── Footer ── */}
       <footer className="border-t border-white/10 py-8 text-center text-white/30 text-sm">
-        StreetGuard · Guidewire DEVTrails 2026 · AI-Powered Parametric Insurance for India's Street Economy
+        StreetGuard · Guidewire DEVTrails 2026 · AI-Powered Parametric Insurance for India's Gig Economy
       </footer>
     </div>
   )
