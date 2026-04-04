@@ -175,7 +175,7 @@ export default function Onboarding({ onNavigate }) {
             <div className="space-y-4">
               <div>
                 <label className="text-white/60 text-xs tracking-wider font-semibold block mb-2">YOUR NAME</label>
-                <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Naveen Kumar"
+                <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Murugan R"
                   className="w-full glass-card bg-transparent px-4 py-3 rounded-xl text-sm text-white placeholder-white/30 outline-none focus:border-primary transition"
                   style={name ? { borderColor: '#00D4AA' } : {}} />
               </div>
