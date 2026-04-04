@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>GigShield — AI-Powered Parametric Insurance</title>
+<title>StreetGuard — AI-Powered Parametric Insurance</title>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/prop-types@15/prop-types.min.js" crossorigin></script>
@@ -89,7 +89,7 @@ function Navbar({navigate, transparent=true}) {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2 cursor-pointer" onClick={()=>navigate('landing')}>
           <ShieldIcon size={28} color="#00D4AA"/>
-          <span className="font-display font-bold text-xl">GigShield</span>
+          <span className="font-display font-bold text-xl">StreetGuard</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm text-white/60">
           <a href="#landing" className="hover:text-white transition">How It Works</a>
@@ -119,7 +119,7 @@ function Landing({navigate}) {
           <h1 className="font-display font-extrabold text-4xl md:text-6xl leading-tight mb-6">
             Don't Let The <span className="text-primary">Rain</span> Steal Your Earnings
           </h1>
-          <p className="text-white/60 text-lg mb-4">When weather strikes, GigShield pays. Automatically.</p>
+          <p className="text-white/60 text-lg mb-4">When weather strikes, StreetGuard pays. Automatically.</p>
           <p className="text-white/40 text-sm mb-10">Built for India's 7.7 million delivery partners.</p>
           
           <div className="flex flex-wrap justify-center gap-6 mb-10">
@@ -221,7 +221,7 @@ function Landing({navigate}) {
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-8 text-center text-white/30 text-sm">
-        GigShield · Guidewire DEVTrails 2026 · AI-Powered Parametric Insurance for India's Gig Economy
+        StreetGuard · Guidewire DEVTrails 2026 · AI-Powered Parametric Insurance for India's Gig Economy
       </footer>
     </div>
   );
@@ -286,7 +286,7 @@ function Onboarding({navigate}) {
       {/* Top bar */}
       <div className="border-b border-white/10 px-6 py-4 flex items-center gap-3">
         <ShieldIcon size={24} color="#00D4AA"/>
-        <span className="font-display font-bold text-lg">GigShield</span>
+        <span className="font-display font-bold text-lg">StreetGuard</span>
       </div>
       
       {/* Progress */}
@@ -502,7 +502,7 @@ function Dashboard({navigate}) {
         <div className="flex items-center gap-3">
           <button onClick={()=>navigate('landing')} className="text-white/50 hover:text-white"><ArrowLeftIcon size={20}/></button>
           <ShieldIcon size={22} color="#00D4AA"/>
-          <span className="font-display font-bold">GigShield</span>
+          <span className="font-display font-bold">StreetGuard</span>
           <span className="glass-card px-2 py-0.5 rounded text-[10px] text-primary tracking-wider font-semibold">DASHBOARD</span>
         </div>
         <div className="flex items-center gap-3">
@@ -575,7 +575,7 @@ function Dashboard({navigate}) {
               <span className="text-xs tracking-wider text-white/50 font-semibold">ACTIVE POLICY</span>
               <span className="w-2 h-2 rounded-full bg-success"></span>
             </div>
-            <h3 className="font-display font-bold text-lg mb-4">GigShield Weekly</h3>
+            <h3 className="font-display font-bold text-lg mb-4">StreetGuard Weekly</h3>
             <div className="space-y-3 mb-4">
               {[
                 ['Premium','Rs.52/wk','text-primary'],
