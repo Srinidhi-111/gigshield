@@ -1,36 +1,14 @@
-# 🛡️ GigShield — AI-Powered Parametric Income Insurance for Gig Workers
+# 🛡️ StreetGuard — AI-Powered Parametric Income Insurance for Gig Workers
 
 > *"I don't need much. I just need to know that when it rains, my family still eats that night."*
 > — Murugan, Swiggy Delivery Partner, Tambaram, Chennai
 
-**GigShield** is a weekly parametric income insurance platform for gig delivery workers in India. When a verified disruption — heavy rain, extreme heat, a bandh, platform downtime — hits a worker's zone, GigShield detects it automatically, initiates a claim without the worker doing anything, and sends money to their UPI within 2 hours.
+**StreetGuard** is a weekly parametric income insurance platform for gig delivery workers in India. When a verified disruption — heavy rain, extreme heat, a bandh, platform downtime — hits a worker's zone, StreetGuard detects it automatically, initiates a claim without the worker doing anything, and sends money to their UPI within 2 hours.
 
 No forms. No agents. No waiting.
 
-**[▶ Try the Interactive Prototype](./GigShield_Prototype.html)**
-
 ---
 
-## 📋 Table of Contents
-
-1. [The Problem](#-the-problem)
-2. [Meet Murugan — Our Persona](#-meet-murugan--our-persona)
-3. [Our Solution](#-our-solution)
-4. [How It Works](#-how-it-works)
-5. [Parametric Triggers](#-parametric-triggers)
-6. [Weekly Premium Model](#-weekly-premium-model)
-7. [Loss Simulation Dashboard](#-loss-simulation-dashboard)
-8. [AI/ML Integration](#-aiml-integration)
-9. [Adversarial Defense & Anti-Spoofing Strategy](#️-adversarial-defense--anti-spoofing-strategy)
-10. [Tech Stack](#-tech-stack)
-11. [System Architecture](#-system-architecture)
-12. [Platform Choice](#-platform-choice--web-application)
-13. [Repository Structure](#-repository-structure)
-14. [Development Plan](#-development-plan)
-15. [Team](#-team--code4ce)
-16. [References](#-references)
-
----
 
 ## 🎯 The Problem
 
@@ -85,13 +63,13 @@ On a good week, he earns ₹4,500. On a week with three disruption days — whic
 
 ## 💡 Our Solution
 
-GigShield is built around one core insight: **the disruptions that cost Murugan money are measurable, verifiable, and predictable.** If we can measure them objectively, we can automate the entire insurance process around them.
+StreetGuard is built around one core insight: **the disruptions that cost Murugan money are measurable, verifiable, and predictable.** If we can measure them objectively, we can automate the entire insurance process around them.
 
 That's parametric insurance.
 
-Instead of asking Murugan to prove he lost income, GigShield monitors his zone in real time. When rainfall in Tambaram crosses 20mm/hr, we don't need him to call anyone. We already know he couldn't work. The payout triggers automatically.
+Instead of asking Murugan to prove he lost income, StreetGuard monitors his zone in real time. When rainfall in Tambaram crosses 20mm/hr, we don't need him to call anyone. We already know he couldn't work. The payout triggers automatically.
 
-**GigShield in one sentence:** A ₹84/week subscription that pays Murugan automatically when the weather or city makes it impossible for him to earn.
+**StreetGuard in one sentence:** A ₹84/week subscription that pays Murugan automatically when the weather or city makes it impossible for him to earn.
 
 **What we cover:** Platform income loss due to external, verifiable disruptions.
 **What we don't cover:** Health, accidents, vehicle damage, or personal emergencies.
@@ -103,13 +81,13 @@ Instead of asking Murugan to prove he lost income, GigShield monitors his zone i
 
 ### Step 1 — Onboarding (2 minutes, no documents)
 
-Murugan opens GigShield on his phone browser. He goes through a 4-step onboarding wizard:
+Murugan opens StreetGuard on his phone browser. He goes through a 4-step onboarding wizard:
 
 **Step 1 — Platform Selection:** He selects his primary delivery platform from a card grid — Zomato, Swiggy, Zepto, Blinkit, or Amazon. Each card shows the platform's icon for quick, visual selection.
 
 **Step 2 — Location:** He selects his city from 8 supported cities (Mumbai, Delhi NCR, Bangalore, Hyderabad, Chennai, Pune, Kolkata, Ahmedabad), enters his zone/area (e.g. Tambaram), and inputs his average daily working hours. The platform immediately shows a zone risk badge (Low / Medium / High) based on hyper-local historical disruption data.
 
-**Step 3 — AI Risk Profiling:** GigShield runs an automated analysis across 12+ risk parameters for his city and zone — flood history, monsoon exposure, seasonal AQI, historical disruption frequency. A personalized risk score (0–100) is generated along with a recommended weekly premium.
+**Step 3 — AI Risk Profiling:** StreetGuard runs an automated analysis across 12+ risk parameters for his city and zone — flood history, monsoon exposure, seasonal AQI, historical disruption frequency. A personalized risk score (0–100) is generated along with a recommended weekly premium.
 
 **Step 4 — Plan Confirmation:** A full policy summary is shown — coverage amount, weekly premium, renewal date, and active triggers. He confirms and activates coverage.
 
@@ -158,7 +136,7 @@ Our AI fraud detection model validates the claim against location data, platform
 
 ## 💰 Weekly Premium Model
 
-Gig workers live week to week. A yearly or monthly premium model doesn't fit their cash flow reality. GigShield charges weekly — the same rhythm Murugan earns in.
+Gig workers live week to week. A yearly or monthly premium model doesn't fit their cash flow reality. StreetGuard charges weekly — the same rhythm Murugan earns in.
 
 **Premium Formula:**
 
@@ -191,21 +169,21 @@ Seasonal          : Off-season +₹0 | Summer (Apr–May) +₹5 | Monsoon (Jun�
 
 ## 📊 Loss Simulation Dashboard
 
-One of GigShield's most distinctive features — and the strongest argument for signing up.
+One of StreetGuard's most distinctive features — and the strongest argument for signing up.
 
-When a worker first opens GigShield, before they register, they can enter their zone and weekly earnings and see:
+When a worker first opens StreetGuard, before they register, they can enter their zone and weekly earnings and see:
 
-> *"In the last 6 months, there were 14 heavy-rain disruption days in Tambaram. If you had been covered with GigShield, you would have received ₹6,720 in payouts. Your total premium cost would have been ₹1,848. Net benefit: ₹4,872."*
+> *"In the last 6 months, there were 14 heavy-rain disruption days in Tambaram. If you had been covered with StreetGuard, you would have received ₹6,720 in payouts. Your total premium cost would have been ₹1,848. Net benefit: ₹4,872."*
 
 This is built on **historical OpenWeatherMap data** for each pincode, cross-referenced against our trigger thresholds. The numbers are real. The loss is real.
 
 For workers already registered, the dashboard shows:
 - Total disruption days this month in their zone
 - Claims triggered and amounts paid out
-- Cumulative savings since they joined GigShield
+- Cumulative savings since they joined StreetGuard
 - Upcoming high-risk days based on 7-day weather forecast
 
-This feature turns GigShield from an insurance product into a financial planning tool for gig workers.
+This feature turns StreetGuard from an insurance product into a financial planning tool for gig workers.
 
 ---
 
@@ -245,72 +223,11 @@ Parametric insurance is theoretically vulnerable to identity fraud and false reg
 
 ---
 
-## 🛡️ Adversarial Defense & Anti-Spoofing Strategy
-
-### The Threat
-
-A coordinated fraud ring registers 500 fake delivery workers across Tambaram and Chromepet. They spoof their GPS to show them inside the affected zone. Heavy rain hits. 500 fake claims fire. ₹3,60,000 drains from the liquidity pool in under 2 hours.
-
-This is not a hypothetical. It is the exact attack vector that parametric insurance platforms face. GigShield is built to fight it.
-
-### How We Distinguish a Genuinely Stranded Worker from a Faker
-
-The key insight is this: **a real delivery worker leaves traces. A fake one doesn't.**
-
-A genuine worker who couldn't ride during heavy rain will have:
-- Platform activity (orders accepted, then dropped) in the hours before the disruption
-- A location history that matches their registered zone over multiple weeks
-- A device fingerprint consistent with previous sessions
-- No unusual registration patterns — they joined weeks or months ago, not hours before a trigger event
-
-A fraudster operating a fake account will typically have:
-- No prior platform activity on record
-- A freshly registered account — created close to a high-risk weather window
-- GPS coordinates that are static or suspiciously perfect — real workers move around
-- Multiple accounts registered from the same device or IP address
-- A claim pattern that fires immediately after every single trigger event, with no variation
-
-### Our Multi-Layer Defense
-
-**Layer 1 — Registration Velocity Check**
-New accounts registered within 72 hours of a forecasted high-risk weather event are flagged automatically. They can register but their first claim requires manual admin review. A real worker doesn't create an insurance account because rain is coming — they create it because they want ongoing protection.
-
-**Layer 2 — Platform Activity Cross-Check**
-At claim time, we check whether the worker had any platform activity (orders accepted, deliveries completed, or app open events) in the 4-hour window before the trigger. A worker who was genuinely riding will have activity. A fake worker with a spoofed GPS will have none.
-
-**Layer 3 — GPS Behaviour Analysis**
-Real delivery workers move. Their location pings over a session show natural movement — stopping at restaurants, navigating streets, returning to pickup zones. A spoofed GPS shows one of two patterns: perfectly static coordinates, or unnaturally smooth movement. Our system flags both.
-
-**Layer 4 — Device and Network Fingerprinting**
-Multiple accounts registering from the same device ID or IP subnet are flagged as a potential fraud ring. One person operating 10 fake accounts will share a device. A real worker has one account on one phone.
-
-**Layer 5 — Isolation Forest Anomaly Detection**
-Our scikit-learn Isolation Forest model runs on every claim. It is trained on legitimate claim patterns — zone, time of day, weather severity, worker account age, claim frequency. Claims that deviate significantly from the normal distribution are flagged for review. This catches fraud rings that pass individual checks but look statistically abnormal at scale.
-
-**Layer 6 — Claim Velocity Cap**
-No worker can receive more than one payout per trigger event per day. At the platform level, if claims from a single zone exceed 3x the historical average for that zone and trigger type, the entire batch is paused and sent to admin review before disbursement.
-
-### How We Flag Bad Actors Without Punishing Honest Workers
-
-This is the hardest part. A worker who genuinely lost connectivity, whose GPS lagged, or who just registered last week deserves protection too.
-
-Our approach:
-- **Flag, don't block.** Suspicious claims go to a review queue — they are not rejected automatically. A human admin can approve them within the 2-hour window.
-- **Graduated trust.** New accounts get their first claim reviewed manually. After one clean claim, they move to standard automated processing.
-- **Appeal mechanism.** Workers can submit a simple form with their platform activity screenshot. One legitimate piece of evidence clears a flagged claim.
-- **Zone-level anomaly, not worker-level punishment.** If 500 claims fire from one zone simultaneously, we pause the batch — not individual workers. We investigate the event, not the person.
-
-### Why This Matters for GigShield's Sustainability
-
-Parametric insurance only works if the liquidity pool stays solvent. One successful fraud ring can wipe out weeks of premium collections. Our defense strategy is not just about catching fraudsters — it is about making sure that when Murugan's rain payout fires at 6 PM, the money is actually there.
-
----
-
 ## 🛠️ Tech Stack
 
 We chose this stack based on what is right for the problem — not just what we already knew. Every technology choice reflects a deliberate decision about performance, scalability, and fit for a real production insurance platform.
 
-**Current Prototype (Phase 1)**
+**Phase 1 Prototype**
 
 The Phase 1 interactive prototype is built as a single self-contained HTML file to enable rapid demonstration and evaluation without any setup or server requirements. It runs offline by simply opening the file in any browser on any device.
 
@@ -325,7 +242,7 @@ The Phase 1 interactive prototype is built as a single self-contained HTML file 
 | State persistence | **localStorage** | Worker profile and policy state persists across page refreshes |
 | Data | **Simulated / hardcoded** | All weather, claims, and API data is mocked in-browser for demo purposes |
 
-**Production Build (Phase 2 onwards)**
+**Phase 2 Production Build**
 
 | Layer | Technology | Why |
 |-------|-----------|-----|
@@ -342,7 +259,7 @@ The Phase 1 interactive prototype is built as a single self-contained HTML file 
 | Version Control | **GitHub** | Public repo, clean branch structure, transparent development history |
 
 **Why React (both prototype and production):**
-GigShield's dashboard requires real-time state updates — live trigger status changes, claim progress tracking, live zone monitoring. React's component state model and re-rendering handles this natively. In the prototype, React runs via CDN with Babel Standalone for in-browser JSX compilation, making the file fully portable. In production, it will be bundled with a standard build pipeline (Vite/CRA).
+StreetGuard's dashboard requires real-time state updates — live trigger status changes, claim progress tracking, live zone monitoring. React's component state model and re-rendering handles this natively. In the prototype, React runs via CDN with Babel Standalone for in-browser JSX compilation, making the file fully portable. In production, it will be bundled with a standard build pipeline (Vite/CRA).
 
 **Why FastAPI over Flask (production):**
 FastAPI is async by default, meaning our 30-minute trigger polling loop, API calls to OpenWeatherMap, and claim processing pipeline can all run concurrently without blocking. It also auto-generates interactive Swagger documentation, making our API transparent, testable, and judge-readable. Flask is synchronous by default and would require additional libraries to achieve the same.
@@ -362,7 +279,7 @@ The backend polls OpenWeatherMap every 30 minutes for every active worker's pinc
 
 ---
 
-## 📱 Platform Choice — Web Application
+## 📱 Platform Choice
 
 | Consideration | Our Decision | Reasoning |
 |--------------|-------------|-----------|
@@ -379,17 +296,34 @@ The backend polls OpenWeatherMap every 30 minutes for every active worker's pinc
 The repo is split into four main folders. The `frontend` folder is our React + Tailwind project — components, pages, services, and utilities all have their own subfolders so the codebase stays clean as we build. The `backend` folder is our FastAPI app, organised into routers (API endpoints), services (business logic like trigger monitoring and claim processing), ml (our scikit-learn models), and models (Pydantic data schemas). The `ml` folder holds our Jupyter notebooks for training the premium calculation and fraud detection models separately from the backend code. The `docs` folder contains our persona document, wireframes, and architecture notes.
 
 We set this structure up in Phase 1 deliberately — so that when Phase 2 build starts, every team member knows exactly where their work lives and there's no confusion about where files go.
-
 ---
 
 ## 🗓️ Development Plan
 
-### Phase 1 — Seed (March 4–20) ✅ In Progress
+### Phase 1 — Seed (March 4–20) ✅ Completed
 Research, persona development, system design, tech stack finalization, README, wireframes, 2-minute demo video.
 
 **Deliverables:** README.md in GitHub repo + 2-minute video
 
-### Phase 2 — Scale (March 21–April 4)
+### Phase 2 — Scale (March 21–April 4) ✅ Completed
+
+**Deliverables:** Working MVP + 2-minute demo video
+
+**What we built:**
+- React 18 + Tailwind CSS frontend — all screens fully functional
+- FastAPI backend with OpenWeatherMap + WAQI API integration
+- 30-minute trigger monitoring loop
+- Automatic claim initiation on threshold crossing
+- Razorpay test mode UPI payout flow
+- scikit-learn ML premium calculation model
+- Isolation Forest fraud detection model
+- Firebase Firestore — workers, policies, claims collections
+- Firebase Auth — phone number OTP login
+- Weather-adaptive dashboard — background shifts with live conditions
+- Loss simulation dashboard — personalised to worker zone and earnings
+- Admin dashboard with manual trigger and live claim management
+- Frontend deployed to Vercel
+- Backend deployed to Railway
 
 **Week 1 (March 21–27):**
 - React project scaffold + Tailwind setup
