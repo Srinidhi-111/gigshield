@@ -1,5 +1,7 @@
 # 🛡️ StreetGuard — AI-Powered Parametric Income Insurance for Gig Workers
 
+**🔗 [Pitch Deck](https://docs.google.com/presentation/d/1v2v14qv_H5xEEdcNhWL0Ht9p7J6llaco/edit?usp=sharing&ouid=118022404412997280067&rtpof=true&sd=true)**
+
 > *"I don't need much. I just need to know that when it rains, my family still eats that night."*
 > — Murugan, Swiggy Delivery Partner, Tambaram, Chennai
 
